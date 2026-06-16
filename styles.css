@@ -1,0 +1,856 @@
+/* ==========================================================================
+   CSS Custom Properties (Theme Variables)
+   ========================================================================== */
+   :root {
+    /* Global Typography */
+    --font-heading: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+
+    /* Base Colors - Inspired by the screenshots */
+    --color-bg-light: #F9FAFB;
+    --color-bg-dark: #18181A;
+    --color-bg-darker: #111112;
+    --color-text-dark: #1E293B;
+    --color-text-light: #F8FAFC;
+    --color-text-muted: #94A3B8;
+
+    /* Primary Accent Colors (Gold/Ochre from screenshots) */
+    --theme-primary: #D1A354; /* Gold/Amber */
+    --theme-secondary: #B88B42;
+    --theme-primary-light: rgba(209, 163, 84, 0.15);
+    
+    /* Layout */
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Default Hero Image (Yoga) */
+    --theme-hero-img: url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2000&auto=format&fit=crop');
+}
+
+/* Dynamic Themes (Mostly affecting the hero background image now, keeping the gold accent for brand consistency) */
+[data-theme="pilates"] {
+    --theme-hero-img: url('assets/hero-pilates-active.png');
+}
+
+[data-theme="fitness"] {
+    --theme-hero-img: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2000&auto=format&fit=crop');
+}
+
+[data-theme="crossfit"] {
+    --theme-hero-img: url('assets/hero-crossfit-active.png');
+}
+
+[data-theme="padel"] {
+    --theme-hero-img: url('assets/hero-padel-active.png');
+}
+
+/* ==========================================================================
+   Reset & Base Styles
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    background-color: var(--color-bg-light);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.text-center { text-align: center; }
+
+/* Section Backgrounds */
+.section-light { background-color: var(--color-bg-light); color: var(--color-text-dark); }
+.section-dark { background-color: var(--color-bg-darker); color: var(--color-text-light); }
+.section-accent { background-color: #F0F4F2; color: var(--color-text-dark); } /* Off-white for testimonials */
+
+/* Typography Utilities */
+.eyebrow {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #475569;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.section-dark .eyebrow {
+    color: #94A3B8;
+}
+
+.section-title {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: #475569;
+    max-width: 700px;
+    margin-bottom: 3rem;
+}
+
+.section-dark .section-subtitle {
+    color: var(--color-text-muted);
+}
+
+.text-gold {
+    color: var(--theme-primary);
+    font-style: italic; /* As seen in the screenshot's 'YOGA' and 'Montpellier' */
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 2rem;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--theme-primary);
+    color: #111;
+    box-shadow: 0 4px 15px rgba(209, 163, 84, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background-color: var(--theme-secondary);
+    box-shadow: 0 8px 25px rgba(209, 163, 84, 0.4);
+}
+
+.btn-outline-dark {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.btn-outline-dark:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+.navbar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 1.5rem 0;
+    z-index: 10;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 120px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6));
+}
+
+.logo span {
+    color: var(--theme-primary);
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 80px; /* offset for navbar */
+    background-image: var(--theme-hero-img);
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(17, 17, 18, 0.95) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 120px; /* Space for the floating stats */
+}
+
+.badge-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.hero .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.main-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero .subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    opacity: 0.9;
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Floating Stats Bar */
+.floating-stats-wrapper {
+    position: absolute;
+    bottom: -60px; /* Overlapping the next section */
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(24, 24, 26, 0.85); /* Dark Glass */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem 3rem;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   Problem Section
+   ========================================================================== */
+.problem-section {
+    padding: 160px 0 100px 0; /* Extra top padding for floating stats */
+}
+
+.problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.problem-card {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--border-radius-md);
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.problem-icon {
+    width: 48px;
+    height: 48px;
+    color: var(--theme-primary);
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+}
+
+.problem-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.5;
+}
+
+.problem-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-dark);
+}
+
+.problem-card p {
+    color: #64748B;
+    font-size: 0.9375rem;
+}
+
+/* ==========================================================================
+   Pillars (System) Section
+   ========================================================================== */
+.pillars-section {
+    padding: 100px 0;
+}
+
+.pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+}
+
+.pillar-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: var(--border-radius-md);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pillar-number {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-family: var(--font-heading);
+    font-size: 6rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    z-index: 0;
+}
+
+.pillar-icon-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(209, 163, 84, 0.1);
+    border: 1px solid rgba(209, 163, 84, 0.2);
+    color: var(--theme-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(209, 163, 84, 0.15);
+}
+
+.pillar-icon-circle svg {
+    width: 32px;
+    height: 32px;
+    stroke-width: 1.5;
+}
+
+.pillar-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.pillar-card p {
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+.pillar-tag {
+    align-self: flex-start;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(209, 163, 84, 0.3);
+    color: var(--theme-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(209, 163, 84, 0.05);
+}
+
+/* ==========================================================================
+   Offer & Pricing Section
+   ========================================================================== */
+.offer-section {
+    padding: 100px 0;
+}
+
+.offer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.offer-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature-list {
+    list-style: none;
+}
+
+.feature-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--theme-primary);
+    color: var(--theme-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+.feature-text h4 {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-text-dark);
+}
+
+.feature-text p {
+    font-size: 0.9375rem;
+    color: #64748B;
+}
+
+/* Pricing Card */
+.pricing-card {
+    background: var(--color-bg-darker);
+    border-radius: var(--border-radius-lg);
+    padding: 4rem 3rem;
+    color: white;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(209,163,84,0.15) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+}
+
+.pricing-card .eyebrow {
+    color: var(--color-text-muted);
+}
+
+.price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.price-amount {
+    font-family: var(--font-heading);
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.price-period {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+}
+
+.pricing-features {
+    list-style: none;
+    margin-bottom: 2rem;
+}
+
+.pricing-features li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    font-size: 0.9375rem;
+    color: #E2E8F0;
+}
+
+.pricing-features li::before {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+}
+
+.bonus-box {
+    background: rgba(209, 163, 84, 0.1);
+    border: 1px solid rgba(209, 163, 84, 0.2);
+    padding: 1rem;
+    border-radius: var(--border-radius-sm);
+    color: var(--theme-primary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.pricing-card .btn {
+    width: 100%;
+}
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+.testimonials-section {
+    padding: 100px 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.testimonial-card {
+    background: white;
+    border-radius: var(--border-radius-md);
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.stars {
+    color: var(--theme-primary);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.quote {
+    font-style: italic;
+    color: #475569;
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--theme-secondary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.author-info h4 {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    margin-bottom: 0;
+    color: var(--color-text-dark);
+}
+
+.author-info p {
+    font-size: 0.75rem;
+    color: #94A3B8;
+}
+
+/* ==========================================================================
+   Booking / Action Section
+   ========================================================================== */
+.action-section {
+    padding: 120px 0;
+    text-align: center;
+}
+
+.calendly-placeholder {
+    margin: 3rem auto;
+    max-width: 600px;
+    height: 300px;
+    border: 1px dashed rgba(255,255,255,0.2);
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+}
+
+.calendly-placeholder img {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* ==========================================================================
+   Responsive adjustments (Mobile & Tablet)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .problem-grid, .pillars-grid, .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .offer-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .pricing-card {
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Navbar & Hero */
+    .navbar {
+        padding: 1rem 0;
+    }
+    
+    .navbar .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .logo img {
+        height: 70px; /* Reduced specific to mobile */
+    }
+
+    .navbar .btn {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.875rem;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .hero {
+        padding-top: 180px; /* Extra space to prevent badge overlap */
+        min-height: auto;
+        padding-bottom: 250px; /* Space for the stacked floating stats */
+    }
+
+    .main-title {
+        font-size: clamp(2.25rem, 8vw, 3rem);
+        margin-bottom: 1rem;
+    }
+    
+    .hero .subtitle {
+        font-size: 1rem; margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    /* Floating Stats (Stacked on mobile) */
+    .floating-stats-wrapper {
+        bottom: -200px; /* Push down significantly */
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .stat-divider {
+        width: 100%;
+        height: 1px;
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+    }
+
+    /* Sections Padding & Typography */
+    .problem-section {
+        padding-top: 250px; /* Compensate for the huge floating stats box */
+        padding-bottom: 60px;
+    }
+
+    .pillars-section, .offer-section, .testimonials-section, .action-section {
+        padding: 50px 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Grids stacking */
+    .problem-grid, .pillars-grid, .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .pillar-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .offer-content h2 {
+        font-size: 2rem;
+    }
+
+    .action-section .btn-large {
+        padding: 1rem 1.5rem;
+        width: 100%;
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Demo panel adjustments */
+    #demo-panel {
+        width: calc(100% - 40px);
+        bottom: 10px;
+        right: 20px;
+        left: 20px;
+        padding: 15px;
+    }
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(60px); /* Plus visible */
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Hover effects sur les cartes */
+.problem-card, .pillar-card, .testimonial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.problem-card:hover, .pillar-card:hover, .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* Pillar card active states get a specific glow */
+.pillar-card.active:hover {
+    box-shadow: 0 15px 35px var(--theme-secondary-glow);
+}
